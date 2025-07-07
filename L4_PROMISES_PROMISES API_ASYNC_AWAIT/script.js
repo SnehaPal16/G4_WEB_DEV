@@ -114,28 +114,48 @@
 
 
 
-let p1 = new Promise((resolve , reject) => {
-    setTimeout(()=> {
-        resolve("Promise 1 resolved");
-    })
-});
+// let p1 = new Promise((resolve , reject) => {
+//     setTimeout(()=> {
+//         resolve("Promise 1 resolved");
+//     })
+// });
 
-let p2 = new Promise((resolve , reject) => {
-    setTimeout(()=> {
-        resolve("Promise 2 resolved");
-    })
-});
+// let p2 = new Promise((resolve , reject) => {
+//     setTimeout(()=> {
+//         resolve("Promise 2 resolved");
+//     })
+// });
 
-let p3 = new Promise((resolve , reject) => {
-    setTimeout(()=> {
-        resolve("Promise 3 resolved");
-    })
-});
+// let p3 = new Promise((resolve , reject) => {
+//     setTimeout(()=> {
+//         resolve("Promise 3 resolved");
+//     })
+// });
 
-let p4 = new Promise((resolve , reject) => {
-    setTimeout(()=> {
-        resolve("Promise 4 resolved");
-    })
-});
+// let p4 = new Promise((resolve , reject) => {
+//     setTimeout(()=> {
+//         resolve("Promise 4 resolved");
+//     })
+// });
 
-Promise.all([p1 , p2 , p3 , p4]).then((res) => console.log(res)).catch((err)=> console.log("Error" , err));
+// Promise.all([p1 , p2 , p3 , p4]).then((res) => console.log(res)).catch((err)=> console.log("Error" , err));
+
+
+async function fetchProducts() {
+    const products = await fetch("https://dummyjson.com/products");
+    const data = await products.json()
+    console.log(data);
+
+    const list = document.getElementById("list");
+    
+    data.products.forEach(p => {
+        const li = document.createElement("li");
+        li.innerText = `Title : ${p.title} \n Description :${p.description} \n Price: $${p.price}`;
+        list.appendChild(li);
+    });
+    //HW -> create new array of objects which consists of [title , desc , price]
+}
+
+fetchProducts();
+
+
