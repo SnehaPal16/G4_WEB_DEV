@@ -1,35 +1,48 @@
-let cart = ["shoes" , "shirt" , "wallets"];
+let cart = ["shoes", "shirt", "wallets"];
 
-function orderDetails(cart){
+function orderDetails(cart, callback) {
     let totalItems = cart.length;
-    let totalPrice = totalItems * 1000; 
+    let totalPrice = totalItems * 1000;
     let order = {
-        totalItems : totalItems ,
-        totalPrice : totalPrice
-    }
-    return order;
+        totalItems: totalItems,
+        totalPrice: totalPrice,
+        products: cart
+    };
+    callback(order);
 }
 
-function orderSummary(cb){
-    let orderDetails = cb();
-    let orderId = (Math.random()*10000)+1
-    let orderSummary = {orderDetails , totalPrice , orderId}
+function orderSummary(order, callback) {
+    let orderId = Math.floor(Math.random() * 10000) + 1;
+    let summary = {
+        orderDetails: order,
+        orderId: orderId
+    };
+    callback(summary);
 }
 
-function paymentGateway(){
-    let summary;
-    setTimeout(()=>{
-        summary = cb();
-    },2000)
-    
-    return summary;
+function paymentGateway(summary, callback) {
+    console.log("Processing payment...");
+    setTimeout(() => {
+        summary.paymentStatus = "Paid";
+        callback(summary);
+    }, 2000);
 }
 
-function successfulOrder(){
-    console.log("Your order id is");
-    console.log("No. of Items");
-    console.log("Product Details");
-    console.log("Amount Paid");    
+function successfulOrder(summary) {
+    console.log("Order placed successfully!");
+    console.log("Order ID:", summary.orderId);
+    console.log("Number of Items:", summary.orderDetails.totalItems);
+    console.log("Product Details:", summary.orderDetails.products.join(", "));
+    console.log("Amount Paid:", summary.orderDetails.totalPrice);
+    console.log("Payment Status:", summary.paymentStatus);
 }
 
+
+orderDetails(cart, (order) => {
+    orderSummary(order, (summary) => {
+        paymentGateway(summary, (finalSummary) => {
+            successfulOrder(finalSummary);
+        });
+    });
+});
 
