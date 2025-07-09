@@ -141,6 +141,8 @@
 // Promise.all([p1 , p2 , p3 , p4]).then((res) => console.log(res)).catch((err)=> console.log("Error" , err));
 
 
+// FETCH API---------------------------------------------------------------------->
+
 async function fetchProducts() {
     const products = await fetch("https://dummyjson.com/products");
     const data = await products.json()
@@ -159,3 +161,60 @@ async function fetchProducts() {
 fetchProducts();
 
 
+
+
+// ------------------------------------------------------------------------->
+// Promise 1 resolved
+// Promise 4
+// Promise 2
+// Promise 3
+
+
+
+// const p1 = new Promise((resolve, reject) => {
+//     setTimeout(() => {
+//         resolve("Promise 1 resolved");
+//     }, 4000);
+// });
+
+// p1
+// .then((res) => console.log(res))
+// .then(() => setTimeout(() => {
+//     console.log("Promise 2");
+// }, 2000))
+// .then(() => setTimeout(() => {
+//     console.log("Promise 3");
+// }, 5000))
+// .then(() => setTimeout(() => {
+//     console.log("Promise 4");
+// }, 1000))
+// .catch((err)=>console.log(err));
+
+
+
+// const p1 = new Promise((resolve, reject) => {
+//     setTimeout(() => {
+//         resolve("Promise 1 resolved");
+//     }, 4000);
+// });
+// function somethingSomething(msg , delay){
+//     return new Promise((resolve , reject)=> {
+//         setTimeout(()=>{
+//             console.log("promise resolved : " , msg)
+//             resolve(msg);
+//         },delay);
+//     });
+// }
+
+// p1.then((res)=>{
+//     console.log(res)
+// })
+// .then(()=>{
+//     return somethingSomething("p2" ,2000 )
+// })
+// .then(()=>{
+//     return somethingSomething("p3" ,5000 )
+// })
+// .then(()=>{
+//     return somethingSomething("p4" ,1000 )
+// })
