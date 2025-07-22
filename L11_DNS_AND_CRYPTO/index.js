@@ -159,15 +159,15 @@ console.log('Decrypted:', decrypted);
 // 6. crypto.generateKeyPair() (Asymmetric)----------------->Generate public and private keys.
 // Generate a public/private key pair for asymmetric encryption.
 
-// crypto.generateKeyPair('rsa', {
-//   modulusLength: 2048,
-//   publicKeyEncoding: { type: 'spki', format: 'pem' },
-//   privateKeyEncoding: { type: 'pkcs8', format: 'pem' }
-// }, (err, publicKey, privateKey) => {
-//   if (err) throw err;
-//   console.log('Public Key:', publicKey);
-//   console.log('Private Key:', privateKey);
-// });
+crypto.generateKeyPair('rsa', {
+  modulusLength: 2048,
+  publicKeyEncoding: { type: 'spki', format: 'pem' },
+  privateKeyEncoding: { type: 'pkcs8', format: 'pem' }
+}, (err, publicKey, privateKey) => {
+  if (err) throw err;
+  console.log('Public Key:', publicKey);
+  console.log('Private Key:', privateKey);
+});
 
 
 // 7. crypto.sign() and crypto.verify() (Digital Signatures)----------------->Sign and verify data.
