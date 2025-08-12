@@ -1,27 +1,29 @@
-// REQUIRE ALL THE MODULES HERE ONLY
-const express = require('express');
-require('dotenv').config();
-const mongoose = require('mongoose');
+//REQUIRE OR IMPORT ALL THE MODULES HERE ONLY
+const express = require("express");
+require("dotenv").config();
+const dbConnect = require("./config/database");
+const userRouter = require("./routes/userRoutes");
+const profileRouter = require("./routes/profileRoutes");
 
-const userRouter = require('./routes/userRoute');
-
-// SET INSTANCE HERE ONLY
+//SET INSTANCES HERE ONLY
 const app = express();
 
-// VARIABLES DECLARATION HERE ONLY
-const PORT = process.env.PORT || 4000;
 
-app.use('/api/user' , userRouter);
 
-async function dbConnect(){
-    await mongoose.connect(process.env.DATABASE_URL).then(()=> {
-        console.log("DB CONNECTED")
-    });
-}
+//VARIABLE DECLARATION HERE ONLY
+const PORT = process.env.PORT || 4888;
 
-dbConnect().then(()=>{
-    app.listen(PORT , () => {
-        console.log("Server is running at port : " + PORT);
-    })
-})
 
+// I WANT TO RUN A MIDDLEWARE
+app.use(express.json());
+
+//WE WILLL MAKE ROUTES
+app.use("/api/user",userRouter)
+app.use("/api/profile",profileRouter)
+
+
+dbConnect().then(() => {
+  app.listen(PORT, () => {
+    console.log("Server running on port: ", PORT);
+  });
+});
